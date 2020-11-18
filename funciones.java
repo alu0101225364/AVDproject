@@ -16,10 +16,4 @@ public class funciones {
     return l;
   }
 
-  public static void main(String[] args) {
-    String a = "AAA;BBB;CCCC";
-    funciones f = new funciones();
-    String aaa = f.slice(a).get(2).statement;
-    System.out.println(aaa);
-  }
 }
