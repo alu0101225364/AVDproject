@@ -13,5 +13,8 @@ public class triplet {
 
   private void setType(){
     //TODO Se me ocurrió implementar una función que evalue el statement y le asigne el tipo
+    if (statement.contains("==") || statement.contains("!=") || statement.contains("<") || statement.contains("<=") || statement.contains(">") || statement.contains(">=") ) {
+      this.type = "Condition";
+    }
   }
 }
