@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class triplet {
-  public double number;
-  public String statement;
-  public String type;
+  private double number;
+  private String statement;
+  private String type;
 
   public triplet(double number, String statement, String type){
     this.number = number;
@@ -11,11 +11,29 @@ public class triplet {
     setType();
   }
 
+  public double getNumber(){
+    return number;
+  }
+  
+  public String getStatement(){
+    return statement;
+  }
+
+  public String getType(){
+    return type;
+  }
+
   private void setType(){
     //TODO Se me ocurrió implementar una función que evalue el statement y le asigne el tipo
     if (statement.contains("==") || statement.contains("!=") || statement.contains("<") || statement.contains("<=") || statement.contains(">") || statement.contains(">=") ) {
       this.type = "Condition";
       fixConditionStatement();
+    }
+    else if(statement.contains("=")){
+      this.type = "Assignment";
+    }
+    else if(statement.contains("int") || statement.contains("bool")){
+      this.type = "Declaration";
     }
   }
 
@@ -26,6 +44,6 @@ public class triplet {
       int last = statement.lastIndexOf(")");
       statement = statement.substring(first + 1, last);
     }
-
   }
+
 }
