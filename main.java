@@ -71,20 +71,21 @@ public class main {
     }
     System.out.print("}\n");
     */
-   /*  func.fixNextElements(arr);
+    
+  func.fixNextElements(arr);
     for (int i = 0; i < arr.size(); i++) {
       System.out.println("Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
       + arr.get(i).getType() + "\n NEXT:{" + arr.get(i).nextElement.size());
       for(int j = 0; j< arr.get(i).nextElement.size(); j++){
 
-        System.out.print(arr.get(i).nextElement.get(j));
+        System.out.print(arr.get(i).nextElement.get(j) + " - ");
       }
       System.out.println("}\nPREVIOUS:{");
       for (int j = 0; j < arr.get(i).prevElement.size(); j++) {
-        System.out.print(arr.get(i).prevElement.get(j));
+        System.out.print(arr.get(i).prevElement.get(j) + " - ");
       }
       System.out.println("}\n");
-    }  */
+    }  
   } 
 
   // Funcion que devuelve un arrayList de triplets en las que estará para cada
@@ -101,28 +102,40 @@ public class main {
     for (int i = 0; i < s.length; i++) {
       if (s[i].contains("{")) {
         String foostr[] = s[i].split("\\{");
-        strList.add(strList.size(), foostr[0]);
+        strList.add(strList.size(), foostr[0] +"{");
         strList.add(strList.size(), foostr[1]);
-      } else if (s[i].contains("}") && i < s.length -1) {
-        String foostr[] = s[i].split("\\}");
-        strList.add(strList.size(), foostr[0]);
-        strList.add(strList.size(), foostr[1]);
+      } else if (s[i].contains("}")) {
+          if (s[i].contains("}}")) {
+            
+            strList.add(strList.size(), "}");
+            strList.add(strList.size(), "}");
+
+          }
+          else if( i < s.length - 1){
+            System.out.println("77777777");
+            String foostr[] = s[i].split("\\}");
+            strList.add(strList.size(), foostr[0] + "}");
+            strList.add(strList.size(), foostr[1]);
+          
+          }
+          else{
+            
+            strList.add(strList.size(),"}");
+          }
       } else {
         strList.add(strList.size(), s[i]);
       }
+      
     }
     int fooNmbr = 1;
-    triplet foo;
-    for (int i = 0; i < strList.size(); i++) {
-      if(strList.get(i).trim().length() == 0){
-        foo = new triplet(0, strList.get(i).trim());
-        l.add((int) foo.getNumber(), foo);
-      }
-      else{
+    triplet foo =new triplet(0, strList.get(0).trim());
+    l.add((int) foo.getNumber(), foo);
+    for (int i = 1; i < strList.size(); i++) {
+    
         foo = new triplet(fooNmbr++, strList.get(i).trim());
-        l.add((int) foo.getNumber(), foo);
+        l.add(i, foo);
+
       }
-    }
 
     return l;
   }

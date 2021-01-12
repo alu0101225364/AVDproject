@@ -84,34 +84,54 @@ public class funciones {
         arr.get(i).nextElement.add( (i + 1));
         arr.get(i + 1).prevElement.add((i));
         int count = 0;
-        System.out.println("0000000");
         for (int j = i+1; j < arr.size(); j++){
-          if (count == 0 && arr.get(j).getType()=="Else"){
-            System.out.println("2222");
+          if (count == 0 && arr.get(j).getType() == "Else"){
             arr.get(i).nextElement.add(j);
             arr.get(j).prevElement.add(i);
-            System.out.println("AAAAAA");
+            break;
           }
           else if(arr.get(j).getType() == "Condition_if") {
             count++;
-            System.out.println("BBBBBB");
-
           }
           else if(arr.get(j).getType() == "Else"){
             count--;
-            System.out.println("CCCCCC");
           }
         }
       }
       else if (arr.get(i).getType() == "Condition_while"){}
       else if(arr.get(i).getType() == "Else"){
-        
+        arr.get(i).nextElement.add(i + 1);
+        arr.get(i + 1).prevElement.add((i));
+        //Añadir next al nodo ELSE  y añadir next al ultimo nodo del if y previous del siguiente nodo al else
+        if(arr.get(i).getStatement().contains("{")){
+           int count = 0;
+           System.out.println("pPPPPPPPPPPPPPPP");
+           for (int j = i+1; j < arr.size(); j++){
+          if (count == 0 && arr.get(j).getStatement().contains("}")){
+            //Añadir ultimo nodo del if al siguiente nodo despues de finalizar else
+            arr.get(i-1).nextElement.add(j+1);
+            arr.get(j+1).prevElement.add(i-1);
+            break;
+          }
+          else if(arr.get(j).getType() == "Condition_if") {
+            count++;
+
+          }
+          else if(arr.get(j).getType() == "Else"){
+            count--;
+          }
+        }
+      }
+        else{
+          //En caso de que solo haya un statement en el else, el next del ultimo del if será el segundo despues del else
+          arr.get(i - 1).nextElement.add(i + 1);
+          arr.get(i+1).prevElement.add(i-1);
+        }
       }
       else{
         System.out.println("12345672121121212");
-        int foo = i;
-        arr.get(i).nextElement.add(foo+1);
-        if(i != arr.size()-1){
+        if(i != arr.size()-1 && arr.get(i + 1).getType() != "Else"){
+          arr.get(i).nextElement.add(i+1);
           arr.get(i+1).prevElement.add((i));
         }
       }
