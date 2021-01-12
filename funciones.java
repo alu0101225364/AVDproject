@@ -76,7 +76,7 @@ public class funciones {
   }
 
   public void fixNextElements(ArrayList<triplet> arr){
-    
+    int llaveCierraWhile = -1;
     for (int i = 0; i< arr.size();i++){
       System.out.println(arr.get(i).getType());
       if (arr.get(i).getType() == "Condition_if"){
@@ -98,7 +98,24 @@ public class funciones {
           }
         }
       }
-      else if (arr.get(i).getType() == "Condition_while"){}
+      else if (arr.get(i).getType() == "Condition_while"){
+        arr.get(i).nextElement.add((i + 1));
+        arr.get(i + 1).prevElement.add((i));
+        int count = 0;
+        for (int j = i + 1; j < arr.size(); j++) {
+          if (count == 0 && arr.get(j).getStatement().contains("}")) {
+            arr.get(i).nextElement.add(j+1);
+            arr.get(j+1).prevElement.add(i);
+            arr.get(j).nextElement.add(i);
+            llaveCierraWhile = j;
+            break;
+          } else if (arr.get(j).getType() == "Condition_if") {
+            count++;
+          } else if (arr.get(j).getType() == "Else") {
+            count--;
+          }
+        }
+      }
       else if(arr.get(i).getType() == "Else"){
         arr.get(i).nextElement.add(i + 1);
         arr.get(i + 1).prevElement.add((i));
@@ -129,8 +146,10 @@ public class funciones {
         }
       }
       else{
-        System.out.println("12345672121121212");
-        if(i != arr.size()-1 && arr.get(i + 1).getType() != "Else"){
+        if (i == llaveCierraWhile){
+          
+        }
+        else if(i != arr.size()-1 && arr.get(i + 1).getType() != "Else"){
           arr.get(i).nextElement.add(i+1);
           arr.get(i+1).prevElement.add((i));
         }
