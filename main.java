@@ -9,7 +9,7 @@ public class main {
     String data = "";
 
     try {
-      File myObj = new File("filename.txt");
+      File myObj = new File("filename.c");
       Scanner myReader = new Scanner(myObj);
       while (myReader.hasNextLine()) {
         data += myReader.nextLine();
@@ -19,10 +19,8 @@ public class main {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-
-    // String a = "{int a; int b; int c; read(a); read(b);b = 2+a;c = a; while
-    // (100>(2+a)) {a = b;b = 2+a;}print(a);}";
     funciones func = new funciones();
+
     System.out.println(data);
     ArrayList<triplet> arr = slice(data);
     for (int i = 0; i < arr.size(); i++) {
@@ -37,7 +35,10 @@ public class main {
     }
     System.out.print("}\n");
 
-    ArrayList<ArrayList<String>> AExpKill = new ArrayList<ArrayList<String>>();
+
+
+
+/*     ArrayList<ArrayList<String>> AExpKill = new ArrayList<ArrayList<String>>();
     AExpKill = func.genAExpKill(arr);
     System.out.print("AEXPKILL = { ");
     for (int i = 0; i < AExpKill.size(); i++) {
@@ -69,8 +70,22 @@ public class main {
 
     }
     System.out.print("}\n");
+    */
+   /*  func.fixNextElements(arr);
+    for (int i = 0; i < arr.size(); i++) {
+      System.out.println("Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
+      + arr.get(i).getType() + "\n NEXT:{" + arr.get(i).nextElement.size());
+      for(int j = 0; j< arr.get(i).nextElement.size(); j++){
 
-  }
+        System.out.print(arr.get(i).nextElement.get(j));
+      }
+      System.out.println("}\nPREVIOUS:{");
+      for (int j = 0; j < arr.get(i).prevElement.size(); j++) {
+        System.out.print(arr.get(i).prevElement.get(j));
+      }
+      System.out.println("}\n");
+    }  */
+  } 
 
   // Funcion que devuelve un arrayList de triplets en las que estará para cada
   // statement su tipo y su numero
@@ -88,7 +103,7 @@ public class main {
         String foostr[] = s[i].split("\\{");
         strList.add(strList.size(), foostr[0]);
         strList.add(strList.size(), foostr[1]);
-      } else if (s[i].contains("}") && i < s.length - 1) {
+      } else if (s[i].contains("}") && i < s.length -1) {
         String foostr[] = s[i].split("\\}");
         strList.add(strList.size(), foostr[0]);
         strList.add(strList.size(), foostr[1]);
@@ -96,10 +111,17 @@ public class main {
         strList.add(strList.size(), s[i]);
       }
     }
-
+    int fooNmbr = 1;
+    triplet foo;
     for (int i = 0; i < strList.size(); i++) {
-      triplet foo = new triplet((double) i, strList.get(i).trim());
-      l.add((int) foo.getNumber(), foo);
+      if(strList.get(i).trim().length() == 0){
+        foo = new triplet(0, strList.get(i).trim());
+        l.add((int) foo.getNumber(), foo);
+      }
+      else{
+        foo = new triplet(fooNmbr++, strList.get(i).trim());
+        l.add((int) foo.getNumber(), foo);
+      }
     }
 
     return l;

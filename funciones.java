@@ -75,4 +75,48 @@ public class funciones {
     return sol;
   }
 
+  public void fixNextElements(ArrayList<triplet> arr){
+    
+    for (int i = 0; i< arr.size();i++){
+      System.out.println(arr.get(i).getType());
+      if (arr.get(i).getType() == "Condition_if"){
+
+        arr.get(i).nextElement.add( (i + 1));
+        arr.get(i + 1).prevElement.add((i));
+        int count = 0;
+        System.out.println("0000000");
+        for (int j = i+1; j < arr.size(); j++){
+          if (count == 0 && arr.get(j).getType()=="Else"){
+            System.out.println("2222");
+            arr.get(i).nextElement.add(j);
+            arr.get(j).prevElement.add(i);
+            System.out.println("AAAAAA");
+          }
+          else if(arr.get(j).getType() == "Condition_if") {
+            count++;
+            System.out.println("BBBBBB");
+
+          }
+          else if(arr.get(j).getType() == "Else"){
+            count--;
+            System.out.println("CCCCCC");
+          }
+        }
+      }
+      else if (arr.get(i).getType() == "Condition_while"){}
+      else if(arr.get(i).getType() == "Else"){
+        
+      }
+      else{
+        System.out.println("12345672121121212");
+        int foo = i;
+        arr.get(i).nextElement.add(foo+1);
+        if(i != arr.size()-1){
+          arr.get(i+1).prevElement.add((i));
+        }
+      }
+    }
+    
+  }
+
 }

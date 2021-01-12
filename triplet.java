@@ -4,6 +4,9 @@ public class triplet {
   private double number;
   private String statement;
   private String type;
+  public ArrayList<Integer> nextElement;
+  public ArrayList<Integer> prevElement;
+
 
   public triplet() {
   }
@@ -11,6 +14,8 @@ public class triplet {
   public triplet(double number, String statement) {
     this.number = number;
     this.statement = statement;
+    nextElement = new ArrayList<Integer>();
+    prevElement = new ArrayList<Integer>();
     setType();
   }
 
@@ -27,12 +32,13 @@ public class triplet {
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   private void setType() {
     // TODO Se me ocurrió implementar una función que evalue el statement y le
     // asigne el tipo
+    // TODO contemplar else
     if (statement.contains("==") || statement.contains("!=") || statement.contains("<") || statement.contains("<=")
         || statement.contains(">") || statement.contains(">=")) {
       if (statement.contains("while")) {
@@ -43,8 +49,14 @@ public class triplet {
       fixConditionStatement();
     } else if (statement.contains("=")) {
       this.type = "Assignment";
-    } else if (statement.contains("int") || statement.contains("bool")) {
+    } else if (statement.contains("int ") || statement.contains("bool")) {
       this.type = "Declaration";
+    } else if (statement.contains("else")){
+      this.type = "Else";
+    }
+    else 
+    {
+      this.type = "Function";
     }
   }
 
@@ -56,5 +68,7 @@ public class triplet {
       statement = statement.substring(first + 1, last);
     }
   }
+
+
 
 }
