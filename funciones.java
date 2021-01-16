@@ -18,6 +18,22 @@ public class funciones {
     return AExpGen;
   }
 
+  private String[] separateCondition(String condition){
+    String foostr[] = {""};
+    if (condition.contains("<=")) {
+      foostr = condition.split("<=");
+    } else if (condition.contains(">=")) {
+      foostr = condition.split(">=");
+    } else if (condition.contains(">")) {
+      foostr = condition.split(">");
+    } else if (condition.contains("<")) {
+      foostr = condition.split("<");
+    } else if (condition.contains("==")) {
+      foostr = condition.split("==");
+    }
+    return foostr;
+  }
+
   public ArrayList<String> genAExp(ArrayList<triplet> arr) {
     Set<String> setSol = new HashSet<String>();
     for (int i = 0; i < arr.size(); i++) {
@@ -26,52 +42,14 @@ public class funciones {
         setSol.add(foostr[1]);
       }
       if(arr.get(i).getType().contains("Condition")){
-        if(arr.get(i).getStatement().contains("<=")){
-          String foostr[] = arr.get(i).getStatement().split("<=");
-          if (foostr[0].matches(".*[a-z].*")) {
-             setSol.add(foostr[0]);
-           }
-           if (foostr[1].matches(".*[a-z].*")) {
-             setSol.add(foostr[1]);
-           }      
+        String foostr[] = separateCondition(arr.get(i).getStatement());
+        if (foostr[0].matches(".*[a-z].*")) {
+          setSol.add(foostr[0]);
         }
-        else if(arr.get(i).getStatement().contains(">=")){
-          String foostr[] = arr.get(i).getStatement().split(">=");
-          if (foostr[0].matches(".*[a-z].*")) {
-             setSol.add(foostr[0]);
-           }
-           if (foostr[1].matches(".*[a-z].*")) {
-             setSol.add(foostr[1]);
-           }
+        if (foostr[1].matches(".*[a-z].*")) {
+          setSol.add(foostr[1]);
         }
-        else if(arr.get(i).getStatement().contains(">")){
-           String foostr[] = arr.get(i).getStatement().split(">");
-          if (foostr[0].matches(".*[a-z].*")) {
-             setSol.add(foostr[0]);
-           }
-           if (foostr[1].matches(".*[a-z].*")) {
-             setSol.add(foostr[1]);
-           }
-        }
-        else if(arr.get(i).getStatement().contains("<")){
-           String foostr[] = arr.get(i).getStatement().split("<");
-           if (foostr[0].matches(".*[a-z].*")) {
-             setSol.add(foostr[0]);
-           }
-           if (foostr[1].matches(".*[a-z].*")) {
-             setSol.add(foostr[1]);
-           }
-        }
-        else if(arr.get(i).getStatement().contains("==")){
-           String foostr[] = arr.get(i).getStatement().split("==");
-          if (foostr[0].matches(".*[a-z].*")) {
-             setSol.add(foostr[0]);
-           }
-           if (foostr[1].matches(".*[a-z].*")) {
-             setSol.add(foostr[1]);
-           }
       }
-    }
     }
     ArrayList<String> sol = new ArrayList<String>();
     sol.addAll(setSol);
@@ -113,41 +91,13 @@ public class funciones {
         }
       }
       if (arr.get(i).getType().contains("Condition")){
-        if(arr.get(i).getStatement().contains("<=")){
-          String foostr[] = arr.get(i).getStatement().split("<=");
-          if (AExp.contains(foostr[0]))
-            fooArr.add(foostr[0]);
-          if (AExp.contains(foostr[1]))
-            fooArr.add(foostr[1]);
+        String foostr[] = separateCondition(arr.get(i).getStatement());
+        if (foostr[0].matches(".*[a-z].*")) {
+          setSol.add(foostr[0]);
         }
-        else if(arr.get(i).getStatement().contains(">=")){
-          String foostr[] = arr.get(i).getStatement().split(">=");
-          if (AExp.contains(foostr[0]))
-            fooArr.add(foostr[0]);
-          if (AExp.contains(foostr[1]))
-            fooArr.add(foostr[1]);
+        if (foostr[1].matches(".*[a-z].*")) {
+          setSol.add(foostr[1]);
         }
-        else if(arr.get(i).getStatement().contains(">")){
-          String foostr[] = arr.get(i).getStatement().split(">");
-          if (AExp.contains(foostr[0]))
-            fooArr.add(foostr[0]);
-          if (AExp.contains(foostr[1]))
-            fooArr.add(foostr[1]);
-        }
-        else if(arr.get(i).getStatement().contains("<")){
-          String foostr[] = arr.get(i).getStatement().split("<");
-          if (AExp.contains(foostr[0]))
-            fooArr.add(foostr[0]);
-          if (AExp.contains(foostr[1]))
-            fooArr.add(foostr[1]);
-        }
-        else if(arr.get(i).getStatement().contains("==")){
-          String foostr[] = arr.get(i).getStatement().split("==");
-          if (AExp.contains(foostr[0]))
-            fooArr.add(foostr[0]);
-          if (AExp.contains(foostr[1]))
-            fooArr.add(foostr[1]);
-      }
     }
       sol.add(fooArr);
     }
