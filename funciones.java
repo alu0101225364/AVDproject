@@ -25,11 +25,59 @@ public class funciones {
         String foostr[] = arr.get(i).getStatement().split("=");
         setSol.add(foostr[1]);
       }
+      if(arr.get(i).getType().contains("Condition")){
+        if(arr.get(i).getStatement().contains("<=")){
+          String foostr[] = arr.get(i).getStatement().split("<=");
+          if (foostr[0].matches(".*[a-z].*")) {
+             setSol.add(foostr[0]);
+           }
+           if (foostr[1].matches(".*[a-z].*")) {
+             setSol.add(foostr[1]);
+           }      
+        }
+        else if(arr.get(i).getStatement().contains(">=")){
+          String foostr[] = arr.get(i).getStatement().split(">=");
+          if (foostr[0].matches(".*[a-z].*")) {
+             setSol.add(foostr[0]);
+           }
+           if (foostr[1].matches(".*[a-z].*")) {
+             setSol.add(foostr[1]);
+           }
+        }
+        else if(arr.get(i).getStatement().contains(">")){
+           String foostr[] = arr.get(i).getStatement().split(">");
+          if (foostr[0].matches(".*[a-z].*")) {
+             setSol.add(foostr[0]);
+           }
+           if (foostr[1].matches(".*[a-z].*")) {
+             setSol.add(foostr[1]);
+           }
+        }
+        else if(arr.get(i).getStatement().contains("<")){
+           String foostr[] = arr.get(i).getStatement().split("<");
+           if (foostr[0].matches(".*[a-z].*")) {
+             setSol.add(foostr[0]);
+           }
+           if (foostr[1].matches(".*[a-z].*")) {
+             setSol.add(foostr[1]);
+           }
+        }
+        else if(arr.get(i).getStatement().contains("==")){
+           String foostr[] = arr.get(i).getStatement().split("==");
+          if (foostr[0].matches(".*[a-z].*")) {
+             setSol.add(foostr[0]);
+           }
+           if (foostr[1].matches(".*[a-z].*")) {
+             setSol.add(foostr[1]);
+           }
+      }
+    }
     }
     ArrayList<String> sol = new ArrayList<String>();
     sol.addAll(setSol);
     this.AExp = sol;
     return sol;
+  
   }
 
   public ArrayList<ArrayList<String>> genAExpKill(ArrayList<triplet> arr) {
@@ -64,11 +112,49 @@ public class funciones {
           fooArr.add(foostr[1]);
         }
       }
+      if (arr.get(i).getType().contains("Condition")){
+        if(arr.get(i).getStatement().contains("<=")){
+          String foostr[] = arr.get(i).getStatement().split("<=");
+          if (AExp.contains(foostr[0]))
+            fooArr.add(foostr[0]);
+          if (AExp.contains(foostr[1]))
+            fooArr.add(foostr[1]);
+        }
+        else if(arr.get(i).getStatement().contains(">=")){
+          String foostr[] = arr.get(i).getStatement().split(">=");
+          if (AExp.contains(foostr[0]))
+            fooArr.add(foostr[0]);
+          if (AExp.contains(foostr[1]))
+            fooArr.add(foostr[1]);
+        }
+        else if(arr.get(i).getStatement().contains(">")){
+          String foostr[] = arr.get(i).getStatement().split(">");
+          if (AExp.contains(foostr[0]))
+            fooArr.add(foostr[0]);
+          if (AExp.contains(foostr[1]))
+            fooArr.add(foostr[1]);
+        }
+        else if(arr.get(i).getStatement().contains("<")){
+          String foostr[] = arr.get(i).getStatement().split("<");
+          if (AExp.contains(foostr[0]))
+            fooArr.add(foostr[0]);
+          if (AExp.contains(foostr[1]))
+            fooArr.add(foostr[1]);
+        }
+        else if(arr.get(i).getStatement().contains("==")){
+          String foostr[] = arr.get(i).getStatement().split("==");
+          if (AExp.contains(foostr[0]))
+            fooArr.add(foostr[0]);
+          if (AExp.contains(foostr[1]))
+            fooArr.add(foostr[1]);
+      }
+    }
       sol.add(fooArr);
     }
 
     this.AExpGen = sol;
     return sol;
+    
   }
 
   public void fixNextElements(ArrayList<triplet> arr) {
@@ -116,7 +202,7 @@ public class funciones {
         // siguiente nodo al else
         if (arr.get(i).getStatement().contains("{")) {
           int count = 0;
-          System.out.println("pPPPPPPPPPPPPPPP");
+
           for (int j = i + 1; j < arr.size(); j++) {
             if (count == 0 && arr.get(j).getStatement().contains("}")) {
               // Añadir ultimo nodo del if al siguiente nodo despues de finalizar else
