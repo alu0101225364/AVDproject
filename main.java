@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class main {
   public static void main(String[] args) {
     String data = "";
-    String CFG = "";
     try {
       File myObj = new File("filename.c");
       Scanner myReader = new Scanner(myObj);
@@ -19,6 +18,7 @@ public class main {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
+    
     funciones func = new funciones();
 
     System.out.println(data);
@@ -38,65 +38,17 @@ public class main {
     ArrayList<ArrayList<String>> AExpKill = new ArrayList<ArrayList<String>>();
     AExpKill = func.genAExpKill(arr);
 
-    System.out.print("AEXPKILL = { ");
-    for (int i = 0; i < AExpKill.size(); i++) {
-
-      System.out.print("Number " + (i) + " : {");
-
-      for (int j = 0; j < AExpKill.get(i).size(); j++) {
-        System.out.print(AExpKill.get(i).get(j) + ", ");
-      }
-
-      System.out.print(" } ");
-
-    }
-    System.out.print("}\n");
-
     ArrayList<ArrayList<String>> AExpGen = new ArrayList<ArrayList<String>>();
     AExpGen = func.genAExpGen(arr);
 
-    System.out.print("AEGEN = { ");
-    for (int i = 0; i < AExpGen.size(); i++) {
-
-      System.out.print("Number " + (i) + " : {");
-
-      for (int j = 0; j < AExpGen.get(i).size(); j++) {
-        System.out.print(AExpGen.get(i).get(j) + ", ");
-      }
-
-      System.out.print(" } ");
-
-    }
-    System.out.print("}\n");
-
     func.fixNextElements(arr);
-    for (int i = 0; i < arr.size(); i++) {
-      CFG += "Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
-          + arr.get(i).getType() + "\n NEXT: {";
 
-      for (int j = 0; j < arr.get(i).nextElement.size(); j++) {
+    func.printCFG(arr);
 
-        CFG += arr.get(i).nextElement.get(j) + "-";
-
-      }
-
-      CFG += "} \n PREVIOUS: {";
-
-      for (int j = 0; j < arr.get(i).prevElement.size(); j++) {
-        CFG += arr.get(i).prevElement.get(j) + "-";
-      }
-      CFG += "}\n";
-    }
-
-    System.out.println(CFG);
-
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
+    func.print(AExpKill, AExpGen, 2);
 
     ArrayList<ArrayList<String>> Entry = func.initialEquationsEntry(arr);
-
-    func.initialExits(arr, Entry, AExpKill, AExpGen);
+    func.print(Entry, func.initialExits(arr, Entry, AExpKill, AExpGen),1);
 
   }
 

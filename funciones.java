@@ -160,7 +160,6 @@ public class funciones {
   public void fixNextElements(ArrayList<triplet> arr) {
     int llaveCierraWhile = -1;
     for (int i = 0; i < arr.size(); i++) {
-      System.out.println(arr.get(i).getType());
       if (arr.get(i).getType() == "Condition_if") {
 
         arr.get(i).nextElement.add((i + 1));
@@ -262,21 +261,6 @@ public class funciones {
       AExit.add(exit_union);
     }
 
-    for (int i = 0; i < AExit.size(); i++) {
-      System.out.println("nodo:" + i);
-      for (int j = 0; j < AExit.get(i).size(); j++) {
-        System.out.println(AExit.get(i).get(j) + " - ");
-
-      }
-    }
-
-    for (int i = 0; i < AExit.size(); i++) {
-      System.out.println("nodo:" + i);
-      for (int j = 0; j < entries.get(i).size(); j++) {
-        System.out.println(entries.get(i).get(j) + " - ");
-
-      }
-    }
 
     return AExit;
   }
@@ -303,4 +287,82 @@ public class funciones {
     return AEentry;
   }
 
+
+  public void print(ArrayList<ArrayList<String>> kill, ArrayList<ArrayList<String>> gen, int tipo) {
+    final Object[][] table = new String[kill.size()][];
+    String str_kill[] = new String[kill.size()];
+    String str_gen[] = new String[kill.size()];
+
+    for (int j = 0; j < kill.size(); j++) {
+      StringBuffer sb = new StringBuffer();
+      for (int i = 0; i < kill.get(j).size(); i++) {
+        sb.append("[" + kill.get(j).get(i) + "]");
+      }
+      str_kill[j] = sb.toString();
+      if (sb.toString().length() == 0) {
+        str_kill[j] = "{}";
+      }
+    }
+
+    for (int j = 0; j < gen.size(); j++) {
+      StringBuffer sb = new StringBuffer();
+      for (int i = 0; i < gen.get(j).size(); i++) {
+        sb.append("[" + gen.get(j).get(i) + "]");
+      }
+      str_gen[j] = sb.toString();
+      if (sb.toString().length() == 0) {
+        str_gen[j] = "{}";
+      }
+    }
+
+    for (int i = 0; i < kill.size(); i++) {
+      if (str_kill[i].length() == 0) {
+        table[i] = new String[] { "{}", str_gen[i] };
+      }
+      if (str_gen[i].length() == 0) {
+        table[i] = new String[] { str_kill[i], "{}" };
+      }
+      if (str_gen[i].length() == 0 && str_kill[i].length() == 0) {
+        table[i] = new String[] { "{}", "{}" };
+      }
+      table[i] = new String[] { str_kill[i], str_gen[i] };
+    }
+    System.out.println("____________________");
+    if (tipo == 1) {
+      String header[] = new String[] { "Entry", "Exit" };
+      System.out.format("%-40s%-40s\n", header);
+    }
+    if (tipo == 2) {
+      String header[] = new String[] { "Kill", "Gen" };
+      System.out.format("%-40s%-40s\n", header);
+    }
+    System.out.println("____________________");
+
+    for (final Object[] row : table) {
+      System.out.format("%-40s%-40s\n", row);
+    }
+  }
+
+  public void printCFG(ArrayList<triplet> arr){
+    String CFG = "";
+    for (int i = 0; i < arr.size(); i++) {
+      CFG += "Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
+          + arr.get(i).getType() + "\n NEXT: {";
+
+      for (int j = 0; j < arr.get(i).nextElement.size(); j++) {
+
+        CFG += arr.get(i).nextElement.get(j) + "-";
+
+      }
+
+      CFG += "} \n PREVIOUS: {";
+
+      for (int j = 0; j < arr.get(i).prevElement.size(); j++) {
+        CFG += arr.get(i).prevElement.get(j) + "-";
+      }
+      CFG += "}\n";
+    }
+
+    System.out.println("\nControl Flow Graph: \n " + CFG);
+  }
 }
