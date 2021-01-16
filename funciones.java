@@ -93,11 +93,12 @@ public class funciones {
       if (arr.get(i).getType().contains("Condition")){
         String foostr[] = separateCondition(arr.get(i).getStatement());
         if (foostr[0].matches(".*[a-z].*")) {
-          setSol.add(foostr[0]);
+          fooArr.add(foostr[0]);
         }
         if (foostr[1].matches(".*[a-z].*")) {
-          setSol.add(foostr[1]);
+          fooArr.add(foostr[1]);
         }
+
     }
       sol.add(fooArr);
     }
