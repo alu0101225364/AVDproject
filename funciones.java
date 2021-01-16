@@ -105,6 +105,7 @@ public class funciones {
         for (int j = i + 1; j < arr.size(); j++) {
           if (count == 0 && arr.get(j).getStatement().contains("}")) {
             arr.get(i).nextElement.add(j+1);
+            arr.get(i).prevElement.add(j);
             arr.get(j+1).prevElement.add(i);
             arr.get(j).nextElement.add(i);
             llaveCierraWhile = j;
@@ -156,6 +157,43 @@ public class funciones {
       }
     }
     
+  }
+
+  public ArrayList<ArrayList<String>> initialEquationsEntry(ArrayList<triplet> arr){
+    ArrayList<ArrayList<String>> AEentry = new ArrayList<ArrayList<String>>();
+
+    ArrayList<String> foo = new ArrayList<String>();
+    foo.add("");
+    AEentry.add(foo); 
+
+    for (int i = 0; i< arr.size(); i++){
+      foo.clear();
+      if (i==1){
+        foo.add("{}");
+        AEentry.add(foo);
+      }
+      else{
+        for(int j = 0; j < arr.get(i).prevElement.size(); j++){
+          foo.add(arr.get(i).prevElement.get(j).toString());
+          System.out.println("AAAAAA\n Nodo: " + i + "Prev: " + arr.get(i).prevElement.get(j));
+        }
+        AEentry.add(foo);
+      }
+      //System.out.println("\nAAAADSFÑJADKFSDKFASKDSKDKFDLKDF : " + AEentry.get(i) + " : ");
+
+      System.out.println("\nArray a meter en posicion : " + i + " : ");
+      for(int z = 0; z < foo.size(); z++){
+        System.out.println(foo.get(z).toString());
+      }
+    }
+    for (int i = 0; i < AEentry.size(); i++) {
+      System.out.println("Nodo: " + AEentry.get(i));
+      for (int j = 0; j < AEentry.get(i).size(); j++) {
+        System.out.println(AEentry.get(i).get(j).toString() + "-");
+      }
+    }
+
+    return AEentry;
   }
 
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class main {
   public static void main(String[] args) {
     String data = "";
-
+    String CFG = "";
     try {
       File myObj = new File("filename.c");
       Scanner myReader = new Scanner(myObj);
@@ -72,20 +72,52 @@ public class main {
     System.out.print("}\n");
     */
     
-  func.fixNextElements(arr);
+   func.fixNextElements(arr);
     for (int i = 0; i < arr.size(); i++) {
-      System.out.println("Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
-      + arr.get(i).getType() + "\n NEXT:{" + arr.get(i).nextElement.size());
-      for(int j = 0; j< arr.get(i).nextElement.size(); j++){
+      CFG += "Statement: " + arr.get(i).getStatement() + " Number: " + arr.get(i).getNumber() + " Type: "
+      + arr.get(i).getType() + "\n NEXT: {";
+     /*  for(int j = 0; j< arr.get(i).nextElement.size(); j++){
 
-        System.out.print(arr.get(i).nextElement.get(j) + " - ");
-      }
-      System.out.println("}\nPREVIOUS:{");
+        CFG += arr.get(i).nextElement.get(j) + "-";
+
+      } */
+
+      CFG += "} \n PREVIOUS: {";
+
       for (int j = 0; j < arr.get(i).prevElement.size(); j++) {
-        System.out.print(arr.get(i).prevElement.get(j) + " - ");
+        CFG += arr.get(i).prevElement.get(j) + "-";
       }
-      System.out.println("}\n");
+      CFG += "}\n";
     }  
+
+    System.out.println(CFG);
+
+
+    
+ 
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+
+    ArrayList<ArrayList<String>> Entry = func.initialEquationsEntry(arr);
+
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    for (int j = 0 ; j< Entry.get(3).size(); j++){
+System.out.println(Entry.get(3).get(j));      }
+System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    
+    for (int i = 0; i< Entry.size(); i++){
+      System.out.println("Nodo: "+ i);
+      for (int j = 0 ; j< Entry.get(i).size(); j++){
+        System.out.println(Entry.get(i).get(j));
+      }
+    }
+
+
   } 
 
   // Funcion que devuelve un arrayList de triplets en las que estará para cada
@@ -112,7 +144,6 @@ public class main {
 
           }
           else if( i < s.length - 1){
-            System.out.println("77777777");
             String foostr[] = s[i].split("\\}");
             strList.add(strList.size(), foostr[0] + "}");
             strList.add(strList.size(), foostr[1]);
