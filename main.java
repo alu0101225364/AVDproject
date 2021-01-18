@@ -18,7 +18,7 @@ public class main {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-    
+
     funciones func = new funciones();
 
     System.out.println(data);
@@ -48,7 +48,9 @@ public class main {
     func.print(AExpKill, AExpGen, 2);
 
     ArrayList<ArrayList<String>> Entry = func.initialEquationsEntry(arr);
-    func.print(Entry, func.initialExits(arr, Entry, AExpKill, AExpGen),1);
+    ArrayList<ArrayList<String>> Exit = func.initialExits(arr, Entry, AExpKill, AExpGen);
+    func.print(Entry, Exit, 1);
+    func.conclusiones(arr, Entry);
 
   }
 
